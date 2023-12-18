@@ -56,7 +56,9 @@ object AppViewModelProvider {
 
         // Initializer for HomeViewModel
         initializer {
-            HomeViewModel()
+            val application = (this[APPLICATION_KEY] as InventoryApplication)
+            val itemsRepository = application.container.itemsRepository
+            HomeViewModel(itemsRepository)
         }
     }
 }
