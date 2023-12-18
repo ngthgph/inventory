@@ -18,6 +18,7 @@ package com.example.inventory.ui
 
 import android.app.Application
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
@@ -41,7 +42,9 @@ object AppViewModelProvider {
         }
         // Initializer for ItemEntryViewModel
         initializer {
-            ItemEntryViewModel()
+            val application = (this[APPLICATION_KEY] as InventoryApplication)
+            val itemsRepository = application.container.itemsRepository
+            ItemEntryViewModel(itemsRepository = itemsRepository)
         }
 
         // Initializer for ItemDetailsViewModel
