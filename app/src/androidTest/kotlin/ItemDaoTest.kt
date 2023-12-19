@@ -49,7 +49,7 @@ class ItemDaoTest {
 
     @Test
     @Throws(IOException::class)
-    fun daoInsert_insertsItemIntoDb() = runBlocking {
+    fun daoInsert_insertsItemIntoDB() = runBlocking {
         addOneItemToDb()
         val allItems = itemDao.getAllItems().first()
         assertEquals(item1, allItems[0])
@@ -57,10 +57,24 @@ class ItemDaoTest {
 
     @Test
     @Throws(IOException::class)
-    fun daoGetAllItems_returnAllItemsFromDb() = runBlocking {
+    fun daoGetAllItems_returnAllItemsFromDB() = runBlocking {
         addTwoItemsToDb()
         val allItems = itemDao.getAllItems().first()
         assertEquals(item1, allItems[0])
         assertEquals(item2, allItems[1])
+    }
+
+    @Test
+    @Throws(IOException::class)
+    fun daoUpdateItems_updatesItemsInDB() = runBlocking {
+        addTwoItemsToDb()
+        val item3 = Item(1, "Apples", 15.0, 25)
+        val item4 = Item(2, "Bananas", 5.0, 50)
+        itemDao.update(item3)
+        itemDao.update(item4)
+
+        val allItems = itemDao.getAllItems().first()
+        assertEquals(item3, allItems[0])
+        assertEquals(item4, allItems[1])
     }
 }
