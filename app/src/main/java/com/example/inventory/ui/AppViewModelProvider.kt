@@ -49,8 +49,11 @@ object AppViewModelProvider {
 
         // Initializer for ItemDetailsViewModel
         initializer {
+            val application = (this[APPLICATION_KEY] as InventoryApplication)
+            val itemsRepository = application.container.itemsRepository
             ItemDetailsViewModel(
-                this.createSavedStateHandle()
+                this.createSavedStateHandle(),
+                itemsRepository
             )
         }
 
