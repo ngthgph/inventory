@@ -88,4 +88,13 @@ class ItemDaoTest {
         val allItems = itemDao.getAllItems().first()
         assertTrue(allItems.isEmpty())
     }
+
+    @Test
+    @Throws(IOException::class)
+    fun daoGetItem_returnsItemFromDB() = runBlocking {
+        addOneItemToDb()
+        itemDao.getItem(0)
+        val item = itemDao.getAllItems().first()
+        assertEquals(item.first(),item1)
+    }
 }
